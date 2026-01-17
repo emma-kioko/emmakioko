@@ -1,0 +1,41 @@
+// C++ CODE
+#include <iostream>
+using namespace std;
+
+struct Fraction {
+    int num;
+    int den;
+};
+
+bool greaterFrac(const Fraction& a, const Fraction& b) {
+    return (long long)a.num * b.den > (long long)b.num * a.den;
+}
+
+// pass-by-reference & return-by-reference
+const Fraction& largestFraction(const Fraction& a,
+                                const Fraction& b,
+                                const Fraction& c) {
+    if (greaterFrac(a, b) && greaterFrac(a, c))
+        return a;
+    else if (greaterFrac(b, a) && greaterFrac(b, c))
+        return b;
+    else
+        return c;
+}
+
+int main() {
+    Fraction f1{3, 4};
+    Fraction f2{5, 6};
+    Fraction f3{2, 3};
+
+    const Fraction& result = largestFraction(f1, f2, f3);
+    cout << result.num << "/" << result.den << endl;
+
+    // pointer & memory management
+    int* p = new int;
+    *p = 50;
+    cout << *p << endl;
+    delete p;
+
+    return 0;
+}
