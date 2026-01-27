@@ -1,0 +1,47 @@
+from abc import ABC, abstractmethod
+
+# Abstract base class
+class Employee(ABC):
+    def __init__(self, first_name, initial, last_name):
+        self.first_name = first_name
+        self.initial = initial
+        self.last_name = last_name
+
+    # Abstract method
+    @abstractmethod
+    def getSalary(self):
+        pass
+
+
+# Derived class: SalaryEmployee
+class SalaryEmployee(Employee):
+    def __init__(self, first_name, initial, last_name, monthly_salary):
+        super().__init__(first_name, initial, last_name)
+        self.monthly_salary = monthly_salary
+
+    def getSalary(self):
+        return self.monthly_salary
+
+
+# Derived class: HourlyEmployee
+class HourlyEmployee(Employee):
+    def __init__(self, first_name, initial, last_name, hours_worked, rate_per_hour):
+        super().__init__(first_name, initial, last_name)
+        self.hours_worked = hours_worked
+        self.rate_per_hour = rate_per_hour
+
+    def getSalary(self):
+        return self.hours_worked * self.rate_per_hour
+
+
+# Application / Test
+def main():
+    emp1 = SalaryEmployee("Queen", "E", "Emma", 80000)
+    emp2 = HourlyEmployee("Alex", "J", "Smith", 160, 500)
+
+    print("Salary Employee Monthly Pay:", emp1.getSalary())
+    print("Hourly Employee Monthly Pay:", emp2.getSalary())
+
+
+if __name__ == "__main__":
+    main()
