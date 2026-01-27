@@ -1,0 +1,44 @@
+class Square:
+    # Constructor
+    def __init__(self, side):
+        self.side = side
+
+    # Destructor
+    def __del__(self):
+        pass
+
+    # Member function to find perimeter
+    def getPeri(self):
+        return 4 * self.side
+
+    # Member function to find area
+    def getArea(self):
+        return self.side * self.side
+
+
+class Cube(Square):
+    # Constructor (inherits side from Square)
+    def __init__(self, side):
+        super().__init__(side)
+
+    # Destructor
+    def __del__(self):
+        pass
+
+    # Member function to find surface area of cube
+    def getArea(self):
+        return 6 * (self.side ** 2)
+
+    # Member function to find volume of cube
+    def getVolume(self):
+        return self.side ** 3
+
+
+# Example usage
+sq = Square(4)
+print("Square Perimeter:", sq.getPeri())
+print("Square Area:", sq.getArea())
+
+cb = Cube(4)
+print("Cube Surface Area:", cb.getArea())
+print("Cube Volume:", cb.getVolume())
