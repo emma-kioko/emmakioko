@@ -1,0 +1,63 @@
+#include <iostream>
+using namespace std;
+
+// Base class
+class Square {
+protected:
+    double side;
+
+public:
+    // Constructor
+    Square(double s) {
+        side = s;
+    }
+
+    // Destructor
+    ~Square() {
+    }
+
+    // Function to calculate perimeter
+    double getPeri() {
+        return 4 * side;
+    }
+
+    // Function to calculate area
+    double getArea() {
+        return side * side;
+    }
+};
+
+// Derived class
+class Cube : public Square {
+public:
+    // Constructor
+    Cube(double s) : Square(s) {
+    }
+
+    // Destructor
+    ~Cube() {
+    }
+
+    // Function to calculate surface area of cube
+    double getArea() {
+        return 6 * side * side;
+    }
+
+    // Function to calculate volume of cube
+    double getVolume() {
+        return side * side * side;
+    }
+};
+
+// Main function
+int main() {
+    Square sq(4);
+    cout << "Square Perimeter: " << sq.getPeri() << endl;
+    cout << "Square Area: " << sq.getArea() << endl;
+
+    Cube cb(4);
+    cout << "Cube Surface Area: " << cb.getArea() << endl;
+    cout << "Cube Volume: " << cb.getVolume() << endl;
+
+    return 0;
+}
