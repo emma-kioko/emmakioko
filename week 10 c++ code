@@ -1,0 +1,80 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+// Abstract base class
+class Employee {
+protected:
+    string firstName;
+    char initial;
+    string lastName;
+
+public:
+    // Constructor
+    Employee(string f, char i, string l) {
+        firstName = f;
+        initial = i;
+        lastName = l;
+    }
+
+    // Virtual destructor
+    virtual ~Employee() {
+    }
+
+    // Pure virtual function (abstract)
+    virtual double getSalary() = 0;
+};
+
+// Derived class: SalaryEmployee
+class SalaryEmployee : public Employee {
+private:
+    double monthlySalary;
+
+public:
+    SalaryEmployee(string f, char i, string l, double salary)
+        : Employee(f, i, l) {
+        monthlySalary = salary;
+    }
+
+    ~SalaryEmployee() {
+    }
+
+    double getSalary() {
+        return monthlySalary;
+    }
+};
+
+// Derived class: HourlyEmployee
+class HourlyEmployee : public Employee {
+private:
+    int hoursWorked;
+    double ratePerHour;
+
+public:
+    HourlyEmployee(string f, char i, string l, int hours, double rate)
+        : Employee(f, i, l) {
+        hoursWorked = hours;
+        ratePerHour = rate;
+    }
+
+    ~HourlyEmployee() {
+    }
+
+    double getSalary() {
+        return hoursWorked * ratePerHour;
+    }
+};
+
+// Application / Test
+int main() {
+    Employee* emp1 = new SalaryEmployee("Queen", 'E', "Emma", 80000);
+    Employee* emp2 = new HourlyEmployee("Alex", 'J', "Smith", 160, 500);
+
+    cout << "Salary Employee Monthly Pay: " << emp1->getSalary() << endl;
+    cout << "Hourly Employee Monthly Pay: " << emp2->getSalary() << endl;
+
+    delete emp1;
+    delete emp2;
+
+    return 0;
+}
