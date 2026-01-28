@@ -1,0 +1,113 @@
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+// Course class
+class Course {
+private:
+    string courseCode;
+    string courseName;
+
+public:
+    Course(string code, string name) {
+        courseCode = code;
+        courseName = name;
+    }
+
+    string getCourseName() {
+        return courseName;
+    }
+
+    void display() {
+        cout << courseCode << " - " << courseName << endl;
+    }
+};
+
+// Student class (Association with Course)
+class Student {
+private:
+    string studentID;
+    string name;
+    vector<Course*> courses;   // Association
+
+public:
+    Student(string id, string n) {
+        studentID = id;
+        name = n;
+    }
+
+    string getName() {
+        return name;
+    }
+
+    void addCourse(Course* course) {
+        courses.push_back(course);
+    }
+
+    void displayCourses() {
+        cout << "Courses registered by " << name << ":" << endl;
+        for (Course* c : courses) {
+            c->display();
+        }
+    }
+};
+
+// Department class (Association with Student and Course)
+class Department {
+private:
+    string deptName;
+    vector<Student*> students;
+    vector<Course*> courses;
+
+public:
+    Department(string name) {
+        deptName = name;
+    }
+
+    void addStudent(Student* student) {
+        students.push_back(student);
+    }
+
+    void addCourse(Course* course) {
+        courses.push_back(course);
+    }
+};
+
+// Registrar class (Dependency)
+class Registrar {
+public:
+    void registerStudent(Student* student, Course* course) {
+        student->addCourse(course);
+        cout << student->getName()
+             << " successfully registered for "
+             << course->getCourseName() << endl;
+    }
+};
+
+// Main application
+int main() {
+    // Create department
+    Department csDept("Computer Science");
+
+    // Create courses
+    Course c1("CS101", "Introduction to Programming");
+    Course c2("CS102", "Data Structures");
+
+    csDept.addCourse(&c1);
+    csDept.addCourse(&c2);
+
+    // Create student
+    Student s1("S001", "Queen Emma");
+    csDept.addStudent(&s1);
+
+    // Registrar performs registration (Dependency)
+    Registrar registrar;
+    registrar.registerStudent(&s1, &c1);
+    registrar.registerStudent(&s1, &c2);
+
+    cout << endl;
+    s1.displayCourses();
+
+    return 0;
+}
